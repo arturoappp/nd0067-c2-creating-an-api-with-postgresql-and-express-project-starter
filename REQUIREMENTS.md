@@ -20,6 +20,12 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Current Order by user (args: user id)[token required]
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
+  - app.get('/orders', index)
+  - app.get('/orders/:id', show)
+  - app.post('/orders', verifyToken, create)
+  - app.delete('/orders/:id', verifyToken, destroy)
+  - app.post('/orders/:id', addProduct)
+
 ## Data Shapes
 #### Product
 -  id
@@ -27,11 +33,26 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+
+ - app.get('/products', index)
+ - app.get('/products/:id', show)
+ - app.post('/products', create)
+ - app.delete('/products/:id', destroy)
+
 #### User
 - id
 - firstName
 - lastName
 - password
+
+
+-  app.get("/users", verifyToken, index);
+-  app.get("/users/:id", verifyToken, show);
+-  app.get("/users/orders/:id", verifyToken, getOrders);
+-  app.post("/users", create);
+-  app.delete("/users/:id", verifyToken, destroy);
+-  app.put("/users/:id", verifyToken, update);
+-  app.post('/users/authenticate', authenticate);
 
 #### Orders
 - id
@@ -39,4 +60,40 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+
+- app.get('/order-products', index)
+- app.get('/order-products/:id', show)
+- app.post('/order-products', verifyToken, create)
+- app.delete('/order-products/:id', destroy)
+
+CREATE TABLE users
+(
+id              SERIAL PRIMARY KEY,
+username        VARCHAR(100) NOT NULL,
+lastname        VARCHAR(100) NOT NULL,
+password_digest VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE products
+(
+id    SERIAL PRIMARY KEY,
+name  VARCHAR(64) NOT NULL,
+price integer     NOT NULL
+);
+
+CREATE TABLE orders
+(
+id      SERIAL PRIMARY KEY,
+status  VARCHAR(15),
+userId bigint REFERENCES users (id) not null
+);
+
+CREATE TABLE order_products
+(
+id         SERIAL PRIMARY KEY,
+quantity   integer,
+orderId   bigint REFERENCES orders (id),
+productId bigint REFERENCES products (id)
+);
 

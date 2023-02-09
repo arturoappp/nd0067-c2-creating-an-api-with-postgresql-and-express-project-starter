@@ -1,3 +1,37 @@
+# Scripts
+- Install: ```npm install```
+- Install: ```yarn```
+- Set up docker images-database: ```docker-compose up -d```
+- Run unit tests: ```npm run test```
+- - Script will set up the migration data in test database
+- Start server: ```npm run start```
+- - Script will set up the migration data in dev database
+
+# Import collection Postman
+-use file "nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter" locate a root folder.
+
+# Path API
+http://localhost:3000
+http://localhost:3000/users
+
+# Env variables
+Please create on root folder file ".env" with this information:
+- ENV=dev
+- POSTGRES_HOST=127.0.0.1
+- POSTGRES_DB=full_stack_dev
+- POSTGRES_USER=full_stack_user
+- POSTGRES_PASSWORD=password123
+- POSTGRES_PORT=5432
+
+#test
+- POSTGRES_DB_TEST=full_stack_test
+- POSTGRES_PORT_TEST=5433
+
+#auth
+- BCRYPT_PASS=pass_project_2
+- SALT_NUM=10
+- TOKEN_SECRET=token_project_2
+
 # Storefront Backend Project
 
 ## Getting Started
@@ -52,3 +86,14 @@ Add JWT functionality as shown in the course. Make sure that JWTs are required f
 Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+
+
+### 7. Add a migration query
+To create the sql files:
+db-migrate create [Nam-of-sql-or-change] --sql-file
+
+To fun the migration
+db-migrate up
+
+To roll back the migration
+db-migrate down

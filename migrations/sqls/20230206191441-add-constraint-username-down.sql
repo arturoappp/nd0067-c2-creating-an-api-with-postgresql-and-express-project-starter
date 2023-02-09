@@ -1,0 +1,2 @@
+--ALTER TABLE users DROP CONSTRAINT users_un;
+--ALTER TABLE users ALTER COLUMN username DROP NOT NULL;
