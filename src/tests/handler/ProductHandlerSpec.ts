@@ -5,12 +5,19 @@ import {UtilTest} from "../UtilTest";
 import app from "../../server";
 import {Product} from "../../entity/Product";
 
-const path = "/products"
 describe('Product routes/handler', () => {
     let server: request.SuperTest<request.Test>;
+    let token: string
 
-    beforeEach(() => {
+    beforeAll(async () => {
         server = supertest(app);
+        const user: { username: string, lastname: string, password_digest: string } = {
+            username: UtilTest.getRandomString(),
+            lastname: UtilTest.getRandomString(),
+            password_digest: UtilTest.getRandomString()
+        };
+        const response = await server.post("/users").send(user)
+        token = response.body.token
     });
 
     it('GET /products should return a list of products', async () => {
@@ -34,7 +41,7 @@ describe('Product routes/handler', () => {
 
     it('POST /products should create a new product', async () => {
         const product = {name: UtilTest.getRandomString(), price: 100};
-        const res = await server.post('/products').send(product);
+        const res = await server.post('/products').send(product).set('Authorization', 'bearer ' + token);
         expect(res.status).toEqual(200);
         expect(res.body.name).toEqual(product.name);
     });
@@ -42,9 +49,9 @@ describe('Product routes/handler', () => {
     it('DELETE /products/:id should delete a product', async () => {
         //create to test
         const product = {name: UtilTest.getRandomString(), price: 100};
-        const data = await server.post('/products').send(product);
+        const productTest = (await server.post('/products').send(product).set('Authorization', 'bearer ' + token)).body as Product;
 
-        const res = await server.delete(`/products/${data.body.id}`);
+        const res = await server.delete(`/products/${productTest.id}`).set('Authorization', 'bearer ' + token);
         expect(res.status).toEqual(200);
         expect(res.body).toEqual({message: 'Product removed'});
     });

@@ -20,7 +20,8 @@ describe('OrderProduct routes/handler', () => {
     });
 
     it('GET /orderProducts should return a list of order products', async () => {
-        const res = await server.get(path);
+        const res = await server.get(path)
+            .set('Authorization', 'bearer ' + token);
         expect(res.status).toEqual(200);
         expect(res.body).toBeTruthy();
     });
@@ -30,7 +31,8 @@ describe('OrderProduct routes/handler', () => {
 
         const newOrderProduct = await server.post(path).send(orderProduct).set('Authorization', 'bearer ' + token)
 
-        const res = await server.get(`${path}/${newOrderProduct.body.id}`);
+        const res = await server.get(`${path}/${newOrderProduct.body.id}`)
+            .set('Authorization', 'bearer ' + token);
 
         expect(res.status).toEqual(200);
         expect(res.body.id).toEqual(newOrderProduct.body.id);
@@ -52,7 +54,8 @@ describe('OrderProduct routes/handler', () => {
         const result = await server.post(path).send(orderProduct).set('Authorization', 'bearer ' + token)
 
         const id = result.body.id;
-        const res = await server.delete(`${path}/${id}`);
+        const res = await server.delete(`${path}/${id}`)
+            .set('Authorization', 'bearer ' + token);
 
         expect(res.status).toEqual(200);
         expect(res.body).toEqual({message: 'Order product removed'});

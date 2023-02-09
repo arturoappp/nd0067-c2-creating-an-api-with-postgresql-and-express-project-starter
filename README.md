@@ -1,18 +1,23 @@
+# How to set up project 
 # Scripts
+Please execute scripts to install packages and setup docker images for database
 - Install: ```npm install```
 - Install: ```yarn```
 - Set up docker images-database: ```docker-compose up -d```
 - Run unit tests: ```npm run test```
-- - Script will set up the migration data in test database
+- - Script will set up the db-migration data in test database
 - Start server: ```npm run start```
-- - Script will set up the migration data in dev database
+- - Script will set up the db-migration data in dev database
 
 # Import collection Postman
+you can import postman collection to test the API:
 -use file "nd0067-c2-creating-an-api-with-postgresql-and-express-project-starter" locate a root folder.
 
-# Path API
+# EndPoint - host and port API
+
 http://localhost:3000
-http://localhost:3000/users
+
+example fetching all user:http://localhost:3000/users
 
 # Env variables
 Please create on root folder file ".env" with this information:
@@ -31,6 +36,12 @@ Please create on root folder file ".env" with this information:
 - BCRYPT_PASS=pass_project_2
 - SALT_NUM=10
 - TOKEN_SECRET=token_project_2
+
+
+
+
+
+
 
 # Storefront Backend Project
 

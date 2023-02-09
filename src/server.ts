@@ -25,7 +25,7 @@ const verifyToken = (req: Request, res: Response, next: () => void) => {
 
 app.use(bodyParser.json())
 orderRoutes(app, verifyToken)
-productRoutes(app)
+productRoutes(app, verifyToken)
 orderProductRoutes(app, verifyToken)
 userRoutes(app, verifyToken)
 

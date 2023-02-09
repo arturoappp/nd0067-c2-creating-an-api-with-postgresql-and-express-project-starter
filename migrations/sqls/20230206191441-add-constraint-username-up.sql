@@ -1,2 +1,0 @@
-ALTER TABLE users ADD CONSTRAINT users_un UNIQUE (username);
-ALTER TABLE users ALTER COLUMN username SET NOT NULL;

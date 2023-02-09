@@ -23,7 +23,7 @@ const create = async (req: Request, res: Response) => {
         const newOrderProduct = await service.create(orderProduct)
         res.json(newOrderProduct)
     } catch(err) {
-        res.status(400)
+        res.sendStatus(400)
         res.json(err)
     }
 }
@@ -34,10 +34,10 @@ const destroy = async (req: Request, res: Response) => {
 }
 
 const orderProductRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {
-    app.get('/order-products', index)
-    app.get('/order-products/:id', show)
+    app.get('/order-products', verifyToken, index)
+    app.get('/order-products/:id', verifyToken, show)
     app.post('/order-products', verifyToken, create)
-    app.delete('/order-products/:id', destroy)
+    app.delete('/order-products/:id', verifyToken, destroy)
 }
 
 export default orderProductRoutes

@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, {Request, Response} from 'express'
 import {ProductService} from "../service/ProductService";
 
 const service = new ProductService()
@@ -21,8 +21,8 @@ const create = async (req: Request, res: Response) => {
         }
         const newProduct = await service.create(product)
         res.json(newProduct)
-    } catch(err) {
-        res.status(400)
+    } catch (err) {
+        res.sendStatus(400)
         res.json(err)
     }
 }
@@ -32,11 +32,11 @@ const destroy = async (req: Request, res: Response) => {
     res.json(deleted)
 }
 
-const productRoutes = (app: express.Application) => {
+const productRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {
     app.get('/products', index)
     app.get('/products/:id', show)
-    app.post('/products', create)
-    app.delete('/products/:id', destroy)
+    app.post('/products', verifyToken, create)
+    app.delete('/products/:id', verifyToken, destroy)
 }
 
 export default productRoutes

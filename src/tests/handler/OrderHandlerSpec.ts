@@ -21,11 +21,13 @@ describe('Orders routes/handler', () => {
                 password_digest: UtilTest.getRandomString()
             };
             const response = await request.post("/users").send(user)
+                .set('Authorization', 'bearer ' + token)
             token = response.body.token
         });
 
         it('GET /orders should return a list of orders ', async () => {
-            const response = await request.get(`${path}`);
+            const response = await request.get(`${path}`)
+                .set('Authorization', 'bearer ' + token);
             console.log(response.body)
             expect(response.status).toBe(200)
             expect(response.body).toBeTruthy()
@@ -33,7 +35,8 @@ describe('Orders routes/handler', () => {
 
         it('GET /orders/:id should return a single order ', async () => {
             const id = 2
-            const response = await request.get(`${path}/${id}`);
+            const response = await request.get(`${path}/${id}`)
+                .set('Authorization', 'bearer ' + token);
             console.log(response.body)
             expect(response.status).toBe(200)
             expect(response.body.id).toEqual(id)
@@ -41,7 +44,8 @@ describe('Orders routes/handler', () => {
 
         it('GET /orders/:id should not return an order', async () => {
             const id = -1
-            const response = await request.get(`${path}/${id}`);
+            const response = await request.get(`${path}/${id}`)
+                .set('Authorization', 'bearer ' + token);
             console.log(response.body)
             expect(response.body.message).toEqual("Order not found")
         })
@@ -85,6 +89,7 @@ describe('Orders routes/handler', () => {
             };
 
             const response = await request.post(`${path}/${orderId}`).send(data)
+                .set('Authorization', 'bearer ' + token)
             console.log(response.body)
             expect(response.body.id).toEqual(orderId)
             expect(response.body.orderProducts.length).toBeGreaterThanOrEqual(1)

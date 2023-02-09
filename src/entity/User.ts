@@ -7,7 +7,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({length: 100, nullable: false})
+    @Column({length: 100, nullable: false, unique: true})
     username: string;
 
     @Column({length: 100, nullable: false})
@@ -16,6 +16,6 @@ export class User {
     @Column({ length: 250, nullable: false })
     password_digest: string;
 
-    @OneToMany(type => Order, order => order.user, {eager: true})
-    orders?: Order[];
+    @OneToMany(type => Order, (order:Order) => order.user, {eager: true})
+    public orders?: Order[];
 }

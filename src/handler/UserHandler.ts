@@ -6,18 +6,33 @@ import {User} from "../entity/User";
 const service = new UserService();
 
 const index = async (_req: Request, res: Response) => {
-    const users = await service.index();
-    res.json(users);
+    try {
+        const users = await service.index();
+        res.json(users);
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 };
 
 const show = async (req: Request, res: Response) => {
-    const user = await service.show(parseInt(req.params.id));
-    res.json(user);
+    try {
+        const user = await service.show(parseInt(req.params.id));
+        res.json(user);
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 };
 
 const getOrders = async (req: Request, res: Response) => {
-    const orders = await service.getOrders(parseInt(req.params.id));
-    res.json(orders);
+    try {
+        const orders = await service.getOrders(parseInt(req.params.id));
+        res.json(orders);
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 };
 
 const create = async (req: Request, res: Response) => {
@@ -36,7 +51,7 @@ const create = async (req: Request, res: Response) => {
             res.json(newUser)
         }
     } catch (err) {
-        res.status(401);
+        res.sendStatus(401);
         console.log(err)
         res.json(err);
     }
@@ -59,7 +74,7 @@ const authenticate = async (_req: Request, res: Response) => {
             res.json(userAuth)
         }
     } catch (err) {
-        res.status(401)
+        res.sendStatus(401)
         res.json(err + user)
     }
 }
@@ -80,7 +95,7 @@ const update = async (req: Request, res: Response) => {
             throw new Error('User id does not match!')
         }
     } catch (err) {
-        res.status(401).send('User id does not match!')
+        res.sendStatus(401).send('User id does not match!')
         return
     }
 
@@ -88,7 +103,7 @@ const update = async (req: Request, res: Response) => {
         const updated = await service.update(user.id, user)
         res.json(updated)
     } catch (err) {
-        res.status(400)
+        res.sendStatus(400)
         res.json(err + user)
     }
 }

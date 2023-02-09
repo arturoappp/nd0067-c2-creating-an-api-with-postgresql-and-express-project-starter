@@ -1,4 +1,3 @@
-/* Replace with your SQL commands */
 -- Order Products
 DELETE FROM order_products;
 -- Products

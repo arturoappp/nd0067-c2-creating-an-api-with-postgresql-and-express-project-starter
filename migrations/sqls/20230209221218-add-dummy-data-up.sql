@@ -1,5 +1,3 @@
-/* Replace with your SQL commands */
-
 -- Users
 INSERT INTO users (username, lastname, password_digest)
 VALUES ('user1', 'user1', '$2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa'),
@@ -23,7 +21,3 @@ INSERT INTO order_products (quantity, orderId, productId)
 VALUES (10, 1, 1),
        (5, 2, 2),
        (8, 3, 3);
-
-
-
-

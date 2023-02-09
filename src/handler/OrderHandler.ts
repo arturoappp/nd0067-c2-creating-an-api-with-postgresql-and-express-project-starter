@@ -4,8 +4,13 @@ import {OrderService} from "../service/OrderService";
 const service = new OrderService()
 
 const index = async (_req: Request, res: Response) => {
-    const orders = await service.index()
-    res.json(orders)
+    try {
+        const orders = await service.index()
+        res.json(orders)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 }
 
 const show = async (req: Request, res: Response) => {
@@ -18,7 +23,7 @@ const create = async (req: Request, res: Response) => {
         const newOrder = await service.create(parseInt(req.body.userId))
         res.json(newOrder)
     } catch (err) {
-        res.status(400)
+        res.sendStatus(400)
         res.json(err)
     }
 }
@@ -28,7 +33,7 @@ const addProduct = async (req: Request, res: Response) => {
         const newOrder = await service.addProduct(parseInt(req.body.userId), parseInt(req.body.productId), parseInt(req.body.quantity), parseInt(req.params.id))
         res.json(newOrder)
     } catch (err) {
-        res.status(400)
+        res.sendStatus(400)
         res.json(err)
     }
 }
@@ -39,11 +44,11 @@ const destroy = async (req: Request, res: Response) => {
 }
 
 const orderRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {
-    app.get('/orders', index)
-    app.get('/orders/:id', show)
+    app.get('/orders', verifyToken, index)
+    app.get('/orders/:id', verifyToken, show)
     app.post('/orders', verifyToken, create)
     app.delete('/orders/:id', verifyToken, destroy)
-    app.post('/orders/:id', addProduct)
+    app.post('/orders/:id', verifyToken, addProduct)
 }
 
 export default orderRoutes

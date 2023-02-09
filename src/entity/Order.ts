@@ -12,7 +12,7 @@ export class Order {
     status: string;
 
     @ManyToOne(type => User, user => user.orders)
-    user: User;
+    public user: User;
 
     @OneToMany(type => OrderProduct, orderProduct => orderProduct.order,{eager: true})
     orderProducts: OrderProduct[];
