@@ -1,4 +1,24 @@
 # How to set up project 
+
+# Env variables
+Please first create on root folder file ".env" with this information:
+- ENV=dev
+- POSTGRES_HOST=127.0.0.1
+- POSTGRES_DB=full_stack_dev
+- POSTGRES_USER=full_stack_user
+- POSTGRES_PASSWORD=password123
+- POSTGRES_PORT=5432
+
+#test
+- POSTGRES_DB_TEST=full_stack_test
+- POSTGRES_PORT_TEST=5433
+
+#auth
+- BCRYPT_PASS=pass_project_2
+- SALT_NUM=10
+- TOKEN_SECRET=token_project_2
+- 
+
 # Scripts
 Please execute scripts to install packages and setup docker images for database
 - Install: ```npm install```
@@ -18,29 +38,6 @@ you can import postman collection to test the API:
 http://localhost:3000
 
 example fetching all user:http://localhost:3000/users
-
-# Env variables
-Please create on root folder file ".env" with this information:
-- ENV=dev
-- POSTGRES_HOST=127.0.0.1
-- POSTGRES_DB=full_stack_dev
-- POSTGRES_USER=full_stack_user
-- POSTGRES_PASSWORD=password123
-- POSTGRES_PORT=5432
-
-#test
-- POSTGRES_DB_TEST=full_stack_test
-- POSTGRES_PORT_TEST=5433
-
-#auth
-- BCRYPT_PASS=pass_project_2
-- SALT_NUM=10
-- TOKEN_SECRET=token_project_2
-
-
-
-
-
 
 
 # Storefront Backend Project
