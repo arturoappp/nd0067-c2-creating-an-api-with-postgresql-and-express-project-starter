@@ -4,13 +4,23 @@ import {ProductService} from "../service/ProductService";
 const service = new ProductService()
 
 const index = async (_req: Request, res: Response) => {
-    const products = await service.index()
-    res.json(products)
+    try {
+        const products = await service.index()
+        res.json(products)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 }
 
 const show = async (req: Request, res: Response) => {
-    const product = await service.show(parseInt(req.params.id))
-    res.json(product)
+    try {
+        const product = await service.show(parseInt(req.params.id))
+        res.json(product)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -28,8 +38,13 @@ const create = async (req: Request, res: Response) => {
 }
 
 const destroy = async (req: Request, res: Response) => {
-    const deleted = await service.delete(parseInt(req.params.id))
-    res.json(deleted)
+    try {
+        const deleted = await service.delete(parseInt(req.params.id))
+        res.json(deleted)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 }
 
 const productRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {

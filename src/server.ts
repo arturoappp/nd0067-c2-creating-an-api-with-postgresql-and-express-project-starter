@@ -15,11 +15,10 @@ const verifyToken = (req: Request, res: Response, next: () => void) => {
         console.log("Verifying token:  " + req.headers.authorization)
         const token = req.headers.authorization.split(' ')[1];
         const data = jwt.verify(token, process.env.TOKEN_SECRET);
-        //console.log(data)
         console.log("Token is valid")
         next();
     } catch (ex) {
-        res.send(401);
+        res.sendStatus(401);
     }
 }
 

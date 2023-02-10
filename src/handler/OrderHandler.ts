@@ -14,8 +14,13 @@ const index = async (_req: Request, res: Response) => {
 }
 
 const show = async (req: Request, res: Response) => {
-    const order = await service.show(parseInt(req.params.id))
-    res.json(order)
+    try {
+        const order = await service.show(parseInt(req.params.id))
+        res.json(order)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -39,8 +44,14 @@ const addProduct = async (req: Request, res: Response) => {
 }
 
 const destroy = async (req: Request, res: Response) => {
-    const deleted = await service.delete(parseInt(req.params.id))
-    res.json(deleted)
+    try {
+        const deleted = await service.delete(parseInt(req.params.id))
+        res.json(deleted)
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
+
 }
 
 const orderRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {
