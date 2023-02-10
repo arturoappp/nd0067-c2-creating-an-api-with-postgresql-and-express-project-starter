@@ -109,8 +109,13 @@ const update = async (req: Request, res: Response) => {
 }
 
 const destroy = async (req: Request, res: Response) => {
-    const deleted = await service.delete(parseInt(req.params.id));
-    res.json(deleted);
+    try {
+        const deleted = await service.delete(parseInt(req.params.id));
+        res.json(deleted);
+    } catch (err) {
+        res.sendStatus(400)
+        res.json(err)
+    }
 };
 
 const userRoutes = (app: express.Application, verifyToken: (req: express.Request, res: express.Response, next: () => void) => void) => {
